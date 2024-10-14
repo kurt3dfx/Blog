@@ -1,0 +1,44 @@
+﻿@model Blog.Web.Models.Post
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Post</h4>
+    <hr />
+    <dl class="row">
+
+        <!--dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id_usuario)
+        </dt>
+        <dd-- class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id_usuario)
+        </dd-->
+
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Titulo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DataPost)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DataPost)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-info"  asp-action="Edit" asp-route-id="@Model?.Id">Editar</a> |
+    <a class="btn btn-warning"  asp-action="Index">Voltar</a>
+</div>

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Blog.Web.Models.Post>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Blog Desenvolvedor IO";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Blog Desenvolvedor IO</h1>
+    <p>Posts</p>
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <p><a asp-controller="Posts" asp-action="Create" class="btn btn-info">Criar Post</a></p>
+    }
+
+    <table align="center">
+        <tbody>
+            @foreach (var item in Model) {
+        <tr>
+
+            <td>
+                <b>@Html.DisplayFor(modelItem => item.Titulo)</b> em @Html.DisplayFor(modelItem => item.DataPost)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+        </tr>
+
+        <tr>
+            <td><a asp-controller="Posts" asp-action="ViewPost" asp-route-id="@item.Id" class="btn btn-warning">Ver Post</a></td>
+        </tr>
+
+        <tr>
+            <td>
+                <hr />
+            </td>
+        </tr>
+
+        }
+       </tbody>
+    </table>
+</div>

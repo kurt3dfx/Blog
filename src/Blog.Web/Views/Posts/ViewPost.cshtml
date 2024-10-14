@@ -1,0 +1,66 @@
+﻿@model Blog.Web.Models.Post
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Blog Desenvolvedor IO";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Blog Desenvolvedor IO</h1>
+    <p>Posts</p>
+    <table align="center">
+        <tbody>
+            <tr>
+
+                <td>
+                    <h2>@Html.DisplayFor(Post => Post.Titulo)</h2>
+                    <p>Autor: @Html.DisplayFor(Post => Post.Autor) em @Html.DisplayFor(Post => Post.DataPost)</p>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <br />
+                    <h5>@Html.DisplayFor(Post => Post.Descricao)</h5>
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+
+            <tr>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <td>
+                        <a asp-controller="Comentarios" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-info">Comentar</a> |
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-warning">Voltar</a> | 
+                        <a asp-controller="Comentarios" asp-action="ViewComments" asp-route-id="@Model.Id" class="btn btn-warning">Ver Comentários</a> |
+                        @if (User.IsInRole("Admin") || (Model.Autor == @User.Identity?.Name))
+                        {
+                            <a asp-controller="Posts" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Apagar Post</a>
+                        }
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-warning">Voltar</a> |
+                        <a asp-controller="Comentarios" asp-action="ViewComments" asp-route-id="@Model.Id" class="btn btn-warning">Ver Comentários</a>
+                    </td>                        
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Blog.Web.Models.Post>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Lista de Posts (Gerenciamento)</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create"><spam class="fa fa-plus"></spam>Novo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+
+            <!--th>
+                @Html.DisplayNameFor(model => model.Id_usuario)
+            </th-->
+
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataPost)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+
+            <!--td>
+                @Html.DisplayFor(modelItem => item.Id_usuario)
+            </td-->
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPost)
+            </td>
+            <td>                
+                <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.Id"><spam class="fa fa-search"></spam></a> |
+                <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam></a> |
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

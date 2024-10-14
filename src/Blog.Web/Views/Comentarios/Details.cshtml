@@ -1,0 +1,44 @@
+﻿@model Blog.Web.Models.Comentario
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Comentario</h4>
+    <hr />
+    <dl class="row">
+
+        <!--dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id_post)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id_post)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id_usuario)
+        </dt>
+        <dd-- class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id_usuario)
+        </dd-->
+
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DataComentario)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DataComentario)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-info" asp-action="Edit" asp-route-id="@Model?.Id">Editar</a> |
+    <a class="btn btn-warning" asp-action="Index">Voltar</a>
+</div>

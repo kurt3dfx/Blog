@@ -1,0 +1,54 @@
+﻿@model Blog.Web.Models.Comentario
+
+@{
+    ViewData["Title"] = "Criando um comentario";
+}
+
+<h4>Comentario @Model.Id_post</h4>
+<hr />
+<div class="row">
+    <div------ class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Id_post" type="hidden" value="@Model.Id_post" />
+
+            <!--div class="form-group">
+                <label asp-for="Id_post" class="control-label"></label>
+                <input asp-for="Id_post" value="@Model.Id_post" class="form-control" />
+                <span asp-validation-for="Id_post" class="text-danger"></span>
+            </div-->
+
+            <!--div class="form-group">
+                <label asp-for="Id_usuario" class="control-label"></label>
+                <input asp-for="Id_usuario" class="form-control" />
+                <span asp-validation-for="Id_usuario" class="text-danger"></span>
+            </div-->
+
+            <div class="form-group">
+                <label asp-for="Descricao" class="control-label"></label>
+                <textarea type="textArea" asp-for="Descricao" class="form-control"></textarea>
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataComentario" class="control-label"></label>
+                <input asp-for="DataComentario" class="form-control" />
+                <span asp-validation-for="DataComentario" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Autor" class="control-label"></label>
+                <input asp-for="Autor" class="form-control" value="@User.Identity?.Name" readonly />
+                <span asp-validation-for="Autor" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Enviar" class="btn btn-info" />
+                <!--a asp-action="Index" class="btn btn-warning">Voltar</a-->
+                <a asp-controller="Home" asp-action="Index" class="btn btn-warning">Voltar</a>
+            </div>
+        </form>
+    </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
