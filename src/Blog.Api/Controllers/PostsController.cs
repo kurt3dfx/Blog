@@ -1,10 +1,12 @@
 ﻿using Blog.Api.Data;
 using Blog.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/posts")]
     public class PostsController : ControllerBase
