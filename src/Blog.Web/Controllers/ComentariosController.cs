@@ -159,7 +159,7 @@ namespace Blog.Web.Controllers
                 return NotFound();
             }
 
-            return View(comentario);
+            return View(comentario);            
         }
 
         // POST: Comentarios/Delete/5
@@ -174,7 +174,7 @@ namespace Blog.Web.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         private bool ComentarioExists(int id)
