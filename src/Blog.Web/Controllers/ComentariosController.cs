@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Blog.Web.Data;
-using Blog.Web.Models;
+using Blog.Data.Models;
 using System.Security.Claims;
 
 namespace Blog.Web.Controllers

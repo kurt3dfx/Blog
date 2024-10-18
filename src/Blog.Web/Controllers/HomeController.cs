@@ -1,5 +1,5 @@
 using Blog.Web.Data;
-using Blog.Web.Models;
+using Blog.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;

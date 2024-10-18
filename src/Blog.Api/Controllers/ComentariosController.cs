@@ -1,5 +1,5 @@
 ﻿using Blog.Api.Data;
-using Blog.Web.Models;
+using Blog.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
