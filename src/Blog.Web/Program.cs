@@ -1,5 +1,5 @@
 using Blog.Web.Data;
-using Blog.Web.Models;
+using Blog.Data.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

@@ -1,5 +1,5 @@
 ﻿using ApiFuncional.Models;
-using Blog.Web.Models;
+using Blog.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
