@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Data.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContextData : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public ApplicationDbContextData(DbContextOptions<ApplicationDbContextData> options)
             : base(options)
         {
         }
