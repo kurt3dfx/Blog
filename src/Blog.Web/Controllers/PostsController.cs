@@ -3,14 +3,18 @@ using Microsoft.EntityFrameworkCore;
 using Blog.Web.Data;
 using Blog.Data.Models;
 using System.Security.Claims;
+using Blog.Data.Services;
+
+using Blog.Data.Data;
 
 namespace Blog.Web.Controllers
 {
     public class PostsController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        
-        public PostsController(ApplicationDbContext context)
+        //public readonly ApplicationDbContext _context;
+        public readonly ApplicationDbContextData _context;
+
+        public PostsController(ApplicationDbContextData context)
         {
             _context = context;
         }
@@ -23,6 +27,8 @@ namespace Blog.Web.Controllers
                 return NotFound();
             }
 
+            
+            /*
             var post = await _context.Posts
                 //.Include(post => post.Id_usuario)
                 //.Include(Comentario => Comentario).ThenInclude(post => post.Id_usuario)
@@ -31,14 +37,20 @@ namespace Blog.Web.Controllers
             {
                 return NotFound();
             }
+            */
+            
+            var postServices = new PostService(_context);
+            var post2 = postServices.GetPost((int)id);
 
-            return View(post);
+            return View(post2.Result.Value);
         }
 
         // GET: Posts
         public async Task<IActionResult> Index()
         {
             return View(await _context.Posts.ToListAsync());
+            //var postServices = new PostService(_context);
+            //return View(postServices.GetPosts);
         }
 
         // GET: Posts/Details/5

@@ -4,13 +4,15 @@ using Blog.Web.Data;
 using Blog.Data.Models;
 using System.Security.Claims;
 
+using Blog.Data.Data;
+
 namespace Blog.Web.Controllers
 {
     public class ComentariosController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContextData _context;
 
-        public ComentariosController(ApplicationDbContext context)
+        public ComentariosController(ApplicationDbContextData context)
         {
             _context = context;
         }

@@ -8,6 +8,11 @@ builder.Services.AddDbContext<ApplicationDbContextData>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddDbContext<ApplicationDbContextData>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");

@@ -1,4 +1,4 @@
-using Blog.Web.Data;
+using Blog.Data.Data;
 using Blog.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,9 +10,9 @@ namespace Blog.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContextData _context;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContextData context)
         {
             _logger = logger;
             _context = context;
