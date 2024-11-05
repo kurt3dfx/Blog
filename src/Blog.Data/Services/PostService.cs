@@ -14,20 +14,21 @@ namespace Blog.Data.Services
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Post>>> GetPosts()
+        //[HttpGet]
+        public async Task<List<Post>> GetPosts()
         {
-            return await _context.Posts.ToListAsync();
+            var post2 = await _context.Posts.ToListAsync();
+            return post2;
         }
 
-        [HttpGet("{id:int}")]
+        //[HttpGet("{id:int}")]
         public async Task<ActionResult<Post>> GetPost(int id)
         {
             var post = await _context.Posts.FindAsync(id);
             return post;
         }
 
-        [HttpPost]
+        //[HttpPost]
         public async Task<ActionResult<Post>> PostPost(Post post)
         {
             _context.Posts.Add(post);
@@ -36,7 +37,7 @@ namespace Blog.Data.Services
             return post;
         }
 
-        [HttpPut("{id:int}")]
+        //[HttpPut("{id:int}")]
         public async Task<IActionResult> PutPost(int id, Post post)
         {
             _context.Posts.Update(post);
@@ -45,11 +46,20 @@ namespace Blog.Data.Services
             return (IActionResult)post;
         }
 
-        [HttpDelete("{id}")]
+        //[HttpDelete("{id}")]
         public async Task<IActionResult> DeletePost(int id)
         {
+            /*
             var post = await _context.Posts.FindAsync(id);
             _context.Posts.Remove(post);
+            await _context.SaveChangesAsync();
+            */
+            var post = await _context.Posts.FindAsync(id);
+            if (post != null)
+            {
+                _context.Posts.Remove(post);
+            }
+
             await _context.SaveChangesAsync();
 
             return (IActionResult)post;

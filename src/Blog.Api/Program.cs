@@ -1,4 +1,5 @@
 using Blog.Api.Data;
+using Blog.Data.Data;
 using Blog.Data.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -43,14 +44,21 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+/*
 builder.Services.AddDbContext<ApiDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+*/
+
+builder.Services.AddDbContext<ApplicationDbContextData>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ApiDbContext>();
+    .AddEntityFrameworkStores<ApplicationDbContextData>();
 
 // Processo do token
 

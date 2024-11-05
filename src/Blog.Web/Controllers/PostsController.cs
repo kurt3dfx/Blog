@@ -6,6 +6,7 @@ using System.Security.Claims;
 using Blog.Data.Services;
 
 using Blog.Data.Data;
+using Microsoft.Extensions.Hosting;
 
 namespace Blog.Web.Controllers
 {
@@ -61,14 +62,18 @@ namespace Blog.Web.Controllers
                 return NotFound();
             }
 
+            /*
             var post = await _context.Posts
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (post == null)
             {
                 return NotFound();
             }
+            */
+            var postServices = new PostService(_context);
+            var post2 = postServices.GetPost((int)id);
 
-            return View(post);
+            return View(post2);
         }
 
         // GET: Posts/Create
@@ -85,6 +90,7 @@ namespace Blog.Web.Controllers
         public async Task<IActionResult> Create([Bind("Id,Id_usuario,Titulo,Descricao,DataPost,Autor")] Post post)
         {
 
+            /*
             if (ModelState.IsValid)
             {
 
@@ -96,8 +102,13 @@ namespace Blog.Web.Controllers
                 await _context.SaveChangesAsync();
                 //return RedirectToAction(nameof(Index));
                 return RedirectToAction("Index", "Home");
-            }
-            return View(post);
+            }*/
+
+            var postServices = new PostService(_context);
+            var post2 = postServices.PostPost(post);
+
+            //return View();
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Posts/Edit/5
@@ -174,6 +185,7 @@ namespace Blog.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            /*
             var post = await _context.Posts.FindAsync(id);
             if (post != null)
             {
@@ -181,6 +193,11 @@ namespace Blog.Web.Controllers
             }
 
             await _context.SaveChangesAsync();
+            */
+
+            var postServices = new PostService(_context);
+            postServices.DeletePost(id);
+
             return RedirectToAction("Index", "Home");
         }
 

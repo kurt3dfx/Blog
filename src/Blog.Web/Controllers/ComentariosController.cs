@@ -5,6 +5,9 @@ using Blog.Data.Models;
 using System.Security.Claims;
 
 using Blog.Data.Data;
+using Blog.Data.Services;
+using System.Xml.Linq;
+using Microsoft.Extensions.Hosting;
 
 namespace Blog.Web.Controllers
 {
@@ -24,14 +27,20 @@ namespace Blog.Web.Controllers
                 return RedirectToAction("Home", "Index");
             }
 
+            /*
             var comments = _context.Comentarios
                 .Where(m => m.Id_post == id);
             if (comments == null)
             {
                 return RedirectToAction("Index","Home");
             }
+            */
+            //return View(comments);
 
-            return View(comments);
+            var comentariosServices = new ComentariosService(_context);
+            var comentarios = comentariosServices.GetComentarios((int)id);
+
+            return View(comentarios.Result);            
         }
 
         // GET: Comentarios
@@ -43,6 +52,7 @@ namespace Blog.Web.Controllers
         // GET: Comentarios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            
             if (id == null)
             {
                 return NotFound();
@@ -55,7 +65,7 @@ namespace Blog.Web.Controllers
                 return NotFound();
             }
 
-            return View(comentario);
+            return View(comentario);           
         }
 
         // GET: Comentarios/Create
@@ -76,10 +86,16 @@ namespace Blog.Web.Controllers
         public async Task<IActionResult> Create([Bind("Id_post,Id_usuario,Descricao,DataComentario,Autor")] Comentario comentario)
         {
 
+            
             System.Security.Claims.ClaimsPrincipal currentUser = this.User;
             var currentUserName = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
             comentario.Id_usuario = currentUserName;
 
+            var comentariosServices = new ComentariosService(_context);
+            var comentarios2 = comentariosServices.PostComentario(comentario);
+
+
+            /*
             //if (ModelState.IsValid)
             //{
                 //comentario.Id_post = Id_post;
@@ -91,8 +107,10 @@ namespace Blog.Web.Controllers
                 //return RedirectToAction(nameof(Index));
                 //return RedirectToAction("ViewComments","Comentarios");
                 //return RedirectToAction("Home", "Index");
-            //}
-            //return View(comentario);
+            //}            
+            */
+
+            return View(comentario);
         }
 
         // GET: Comentarios/Edit/5
@@ -169,6 +187,7 @@ namespace Blog.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            /*
             var comentario = await _context.Comentarios.FindAsync(id);
             if (comentario != null)
             {
@@ -176,6 +195,11 @@ namespace Blog.Web.Controllers
             }
 
             await _context.SaveChangesAsync();
+            */
+
+            var comentariosServices = new ComentariosService(_context);
+            comentariosServices.DeleteComentario(id);
+
             return RedirectToAction("Index", "Home");
         }
 

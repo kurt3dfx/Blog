@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
+using Blog.Data.Services;
+
 namespace Blog.Web.Controllers
 {
     public class HomeController : Controller
@@ -20,7 +22,11 @@ namespace Blog.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Posts.ToListAsync());
+            var postServices = new PostService(_context);
+            var post2 = postServices.GetPosts();
+            return View(await post2);
+
+            //return View(await _context.Posts.ToListAsync());
         }
 
         public IActionResult Privacy()
