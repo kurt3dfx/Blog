@@ -72,7 +72,7 @@ namespace Blog.Api.Controllers
             */
             var comentariosServices = new ComentariosService(_context);
 
-            var comentarios = comentariosServices.GetComentario(id);
+            //var comentarios = comentariosServices.GetComentario(id);
             comentariosServices.DeleteComentario(id);
 
             return NoContent();
