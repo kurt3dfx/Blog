@@ -22,6 +22,6 @@ namespace Blog.Data.Models
 
         public string? Autor { get; set; }
 
-        public string? teste { get; set; }
+        public string? Id_autor { get; set; }
     }
 }

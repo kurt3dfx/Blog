@@ -55,7 +55,7 @@ namespace Blog.Data.Services
                 _context.Comentarios.Remove(comentario);
             }
 
-            await _context.SaveChangesAsync();
+            _context.SaveChangesAsync();
 
             return (IActionResult)comentario;
         }

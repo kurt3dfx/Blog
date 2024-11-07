@@ -71,7 +71,9 @@ namespace Blog.Api.Controllers
             await _context.SaveChangesAsync();
             */
             var comentariosServices = new ComentariosService(_context);
-            var comentarios = comentariosServices.DeleteComentario(id);
+
+            var comentarios = comentariosServices.GetComentario(id);
+            comentariosServices.DeleteComentario(id);
 
             return NoContent();
         }

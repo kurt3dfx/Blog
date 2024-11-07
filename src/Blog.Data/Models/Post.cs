@@ -21,5 +21,7 @@ namespace Blog.Data.Models
         public DateTime DataPost { get; set; }
 
         public string? Autor { get; set; }
+
+        public string? Id_autor{ get; set; }
     }
 }
