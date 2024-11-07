@@ -2,6 +2,7 @@
 using Blog.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Blog.Data.Services
 {
@@ -54,6 +55,8 @@ namespace Blog.Data.Services
             _context.Posts.Remove(post);
             await _context.SaveChangesAsync();
             */
+            //var x = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
             var post = await _context.Posts.FindAsync(id);
             if (post != null)
             {

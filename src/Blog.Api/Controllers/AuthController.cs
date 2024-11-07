@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 namespace ApiFuncional.Controllers
@@ -43,7 +44,11 @@ namespace ApiFuncional.Controllers
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
-                return Ok(GerarJwt());
+
+                var user2 = await _userManager.FindByEmailAsync(registerUser.Email);
+                var roles = await _userManager.GetRolesAsync(user2);
+
+                return Ok(GerarJwt(user2,roles));
             }
 
             return Problem("Falha ao registrar o usuário");
@@ -58,19 +63,47 @@ namespace ApiFuncional.Controllers
 
             if (result.Succeeded)
             {
-                return Ok(GerarJwt());
+                var user = await _userManager.FindByEmailAsync(loginUser.Email);
+                var roles = await _userManager.GetRolesAsync(user);
+
+                return Ok(GerarJwt(user,roles));
             }
 
             return Problem("Usuário ou senha incorretos");
         }
 
-        private string GerarJwt()
-        {
+        private async Task<string> GerarJwt(IdentityUser user, IList<string> roles)
+        {            
+           
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.UserName ?? string.Empty),
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(ClaimTypes.Email, user.Email)
+            };
+            
+            
+            
+            //var claims = new List<Claim> { };            
+            //claims.Add(new Claim(ClaimTypes.Name, user.UserName ?? string.Empty));
+            //claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id));
+
+
+            if ((roles.Count) > 0 )
+            {
+                foreach (var role in roles)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, role ?? string.Empty));
+                }
+            }
+           
+            
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtSettings.Segredo);
 
             var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
             {
+                Subject = new ClaimsIdentity(claims),
                 Issuer = _jwtSettings.Emissor,
                 Audience = _jwtSettings.Audiencia,
                 Expires = DateTime.UtcNow.AddHours(_jwtSettings.ExpiracaoHoras),

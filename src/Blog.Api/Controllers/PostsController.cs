@@ -1,12 +1,16 @@
 ﻿using Blog.Data.Models;
 using Microsoft.AspNetCore.Mvc;
-
 using Blog.Data.Data;
 using Blog.Data.Services;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNet.Identity;
+using Microsoft.Extensions.Hosting;
 
 namespace Blog.Api.Controllers
-{
+{    
     [Authorize]
     [ApiController]
     [Route("api/posts")]
@@ -53,11 +57,31 @@ namespace Blog.Api.Controllers
 
         [HttpPut("{id:int}")]
         public async Task<IActionResult> PutPost(int id, Post post)
-        { 
-            //_context.Posts.Update(post);
-            //await _context.SaveChangesAsync();
+        {
+
+            if (((post.Autor) == User.FindFirst(ClaimTypes.Email)?.Value) || ((User.FindFirst(ClaimTypes.Role)?.Value) == "Admin"))
+            {
+                _context.Posts.Update(post);
+                await _context.SaveChangesAsync();
+                return NoContent();
+            }
+            else
+            {
+                return Unauthorized();
+            }            
+
+            /*
+            var postServices = new PostService(_context);
+            var post2 = postServices.GetPost((int)id);
+
+            System.Security.Claims.ClaimsPrincipal currentUser = this.User;
+            var currentUserName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if ((post2.Result.Value.Id_usuario) != currentUserName)
+                return Unauthorized();
 
             return NoContent(); ;
+            */
         }
 
         [HttpDelete("{id}")]
@@ -67,11 +91,21 @@ namespace Blog.Api.Controllers
             //var post = await _context.Posts.FindAsync(id);
             //_context.Posts.Remove(post);
             //await _context.SaveChangesAsync();
-
+        
             var postServices = new PostService(_context);
-            postServices.DeletePost(id);
+            var post2 = postServices.GetPost((int)id);
 
-            return NoContent();
+
+            if (((post2.Result.Value.Autor) == User.FindFirst(ClaimTypes.Email)?.Value) || ((User.FindFirst(ClaimTypes.Role)?.Value) == "Admin"))
+            {
+                postServices.DeletePost(id);
+                return NoContent();
+            }
+            else 
+            {
+                return Unauthorized();
+            }              
+            
         }
     }
 }
