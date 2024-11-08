@@ -55,7 +55,21 @@ namespace Blog.Data.Services
                 _context.Comentarios.Remove(comentario);
             }
 
-           await  _context.SaveChangesAsync();
+            await  _context.SaveChangesAsync();
+
+            return (IActionResult)comentario;
+        }
+
+        public async Task<IActionResult> DeleteComentarioObj(Comentario comentario)
+        {
+
+            if (comentario != null)
+            {
+                _context.Comentarios.Remove(comentario);
+                //Thread.Sleep(2000);
+            }
+
+            _context.SaveChanges();
 
             return (IActionResult)comentario;
         }

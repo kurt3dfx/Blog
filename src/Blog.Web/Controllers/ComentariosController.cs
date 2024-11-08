@@ -110,7 +110,8 @@ namespace Blog.Web.Controllers
             //}            
             */
 
-            return View(comentario);
+            //return View(comentarios2);
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Comentarios/Edit/5
@@ -187,18 +188,20 @@ namespace Blog.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            /*
-            var comentario = await _context.Comentarios.FindAsync(id);
+            var comentariosServices = new ComentariosService(_context);
+
+            var comentario = await comentariosServices.GetComentario(id);
             if (comentario != null)
             {
-                _context.Comentarios.Remove(comentario);
+                //_context.Comentarios.Remove(comentario);
+                comentariosServices.DeleteComentarioObj(comentario.Value);
             }
 
-            await _context.SaveChangesAsync();
-            */
+            //await _context.SaveChangesAsync();
+            
 
-            var comentariosServices = new ComentariosService(_context);
-            comentariosServices.DeleteComentario(id);
+            //var comentariosServices = new ComentariosService(_context);
+            //c.DeleteComentario(id);
 
             return RedirectToAction("Index", "Home");
         }
