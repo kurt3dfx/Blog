@@ -65,15 +65,25 @@ namespace Blog.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteComentario(int id)
         {
+
+            var comentariosServices = new ComentariosService(_context);
+
+            var comentario = await comentariosServices.GetComentario(id);
+            if (comentario != null)
+            {
+                //_context.Comentarios.Remove(comentario);
+                comentariosServices.DeleteComentarioObj(comentario.Value);
+            }
+
             /*
             var comentario = await _context.Comentarios.FindAsync(id);
             _context.Comentarios.Remove(comentario);
             await _context.SaveChangesAsync();
-            */
             var comentariosServices = new ComentariosService(_context);
 
             //var comentarios = comentariosServices.GetComentario(id);
             comentariosServices.DeleteComentario(id);
+            */            
 
             return NoContent();
         }

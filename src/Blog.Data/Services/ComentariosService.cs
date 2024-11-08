@@ -41,7 +41,7 @@ namespace Blog.Data.Services
         public async Task<ActionResult<Comentario>> PostComentario(Comentario comentario)
         {
             _context.Comentarios.Add(comentario);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return comentario;
         }
@@ -55,7 +55,7 @@ namespace Blog.Data.Services
                 _context.Comentarios.Remove(comentario);
             }
 
-            await  _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return (IActionResult)comentario;
         }
