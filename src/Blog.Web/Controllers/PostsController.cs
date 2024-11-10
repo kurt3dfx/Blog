@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Blog.Web.Data;
 using Blog.Data.Models;
-using System.Security.Claims;
 using Blog.Data.Services;
 
 using Blog.Data.Data;
-using Microsoft.Extensions.Hosting;
 
 namespace Blog.Web.Controllers
 {
@@ -196,8 +193,10 @@ namespace Blog.Web.Controllers
             */
 
             var postServices = new PostService(_context);
-            postServices.DeletePost(id);
+            var post2 = postServices.GetPost((int)id);
 
+            postServices.DeletePostObj(post2.Result.Value);
+            
             return RedirectToAction("Index", "Home");
         }
 

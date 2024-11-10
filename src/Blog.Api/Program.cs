@@ -1,4 +1,3 @@
-using Blog.Api.Data;
 using Blog.Data.Data;
 using Blog.Data.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

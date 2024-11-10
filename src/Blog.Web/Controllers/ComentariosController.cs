@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Blog.Web.Data;
 using Blog.Data.Models;
 using System.Security.Claims;
 
 using Blog.Data.Data;
 using Blog.Data.Services;
-using System.Xml.Linq;
-using Microsoft.Extensions.Hosting;
 
 namespace Blog.Web.Controllers
 {

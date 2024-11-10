@@ -63,7 +63,19 @@ namespace Blog.Data.Services
                 _context.Posts.Remove(post);
             }
 
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
+
+            return (IActionResult)post;
+        }
+
+        public async Task<IActionResult> DeletePostObj(Post post)
+        {
+            if (post != null)
+            {
+                _context.Posts.Remove(post);
+            }
+
+            _context.SaveChanges();
 
             return (IActionResult)post;
         }

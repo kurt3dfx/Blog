@@ -1,10 +1,8 @@
-﻿using Blog.Api.Data;
-using Blog.Data.Data;
+﻿using Blog.Data.Data;
 using Blog.Data.Models;
 using Blog.Data.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Api.Controllers
 {
